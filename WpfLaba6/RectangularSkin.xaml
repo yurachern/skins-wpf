@@ -1,0 +1,201 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WpfLaba6">
+    <local:ConverterEnabledButton x:Key="converterEnabledButton"/>
+    <Style TargetType="{x:Type TextBox}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="Verdana"/>
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="AllowDrop" Value="true" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border Name="Border" Padding="10" BorderThickness="3">
+                        <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="#19BE9C"/>
+                        </Border.BorderBrush>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Rectangle" x:Key="forToggleButton">
+        <Style.Setters>
+            <Setter Property="Height" Value="5"/>
+            <Setter Property="Width" Value="25"/>
+            <Setter Property="Margin" Value="1"/>
+            <Setter Property="Fill" Value="#546679"/>
+        </Style.Setters>
+    </Style>
+    <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="Border" Grid.ColumnSpan="2" 
+                    BorderThickness="0">
+                <Border.Background>
+                    <SolidColorBrush Color="#34485F"/>
+                </Border.Background>
+            </Border>
+            <Grid Grid.Column="2" HorizontalAlignment="Center" Margin="2" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Rectangle Style="{StaticResource forToggleButton}"/>
+                <Rectangle Grid.Row="1" Style="{StaticResource forToggleButton}"/>
+                <Rectangle Grid.Row="2" Style="{StaticResource forToggleButton}"/>
+            </Grid>
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="{x:Type ComboBox}"
+       TargetType="{x:Type ComboBox}">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <Setter Property="FontFamily" Value="Vedana"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid>
+                        <ToggleButton x:Name="ToggleButton"
+                        Template="{StaticResource ComboBoxToggleButton}"
+                        Focusable="false" ClickMode="Press"
+                        IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, 
+              RelativeSource={RelativeSource TemplatedParent}}"/>
+                        <ContentPresenter x:Name="ContentSite" IsHitTestVisible="False"
+                            Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Left">
+                        </ContentPresenter>
+                        <Popup x:Name="Popup" Placement="Bottom" 
+                               IsOpen="{TemplateBinding IsDropDownOpen}" 
+                               AllowsTransparency="True" Focusable="False" 
+                               PopupAnimation="Slide">
+                            <Grid x:Name="DropDown" SnapsToDevicePixels="True"
+                  MinWidth="{TemplateBinding ActualWidth}"
+                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                <Border x:Name="DropDownBorder" Margin="5">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="#34485F"/>
+                                    </Border.Background>
+                                </Border>
+                                <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border x:Name="Border" Padding="10" SnapsToDevicePixels="true" Background="Transparent">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Panel.Background).
+                    (SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="#1CBA9B" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <ContentPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate TargetType="{x:Type Button}" x:Key="buttonOpen">
+        <Grid>
+            <Rectangle x:Name="rectangleBnt" Margin="{TemplateBinding Margin}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" Stroke="{TemplateBinding BorderBrush}" Fill="{TemplateBinding Background}" StrokeThickness="0"/>
+            <ContentPresenter Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+    </ControlTemplate>
+   
+    <Style TargetType="Button" x:Key="btnOpen">
+        <Style.Setters>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="2,0,2,0"/>
+            <Setter Property="Background" Value="#1BBC9B"/>
+            <Setter Property="Template" Value="{StaticResource buttonOpen}"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#49C9B0"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#15A086"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="btnClean" BasedOn="{StaticResource btnOpen}">
+        <Style.Setters>
+            <Setter Property="Background" Value="#3598DB"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#5DADE2"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#2C81BA"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Button" x:Key="btnClose" BasedOn="{StaticResource btnClean}">
+        <Style.Setters>
+            <Setter Property="Background" Value="#E84B3C"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#EB6F63"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#C64034"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="Gray"/>
+            </Trigger>
+            <DataTrigger Binding="{Binding ElementName=tbLeft, Path=Text, Converter={StaticResource converterEnabledButton}}" Value="True">
+                <Setter Property="IsEnabled" Value="False"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ElementName=tbRigth, Path=Text, Converter={StaticResource converterEnabledButton}}" Value="True">
+                <Setter Property="IsEnabled" Value="False"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,36 @@
+﻿<Window x:Class="WpfLaba6.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfLaba6"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="140.435" Width="842" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="RectangularSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBox Name="tbLeft"></TextBox>
+        <TextBox Name="tbRigth" Grid.Column="1"></TextBox>
+        <ComboBox Grid.Column="2" Name="cbStyles" SelectionChanged="CbStyles_SelectionChanged">
+            <ItemsControl>OvalSkin</ItemsControl>
+            <ItemsControl>RectangularSkin</ItemsControl>
+        </ComboBox>
+        <Button Grid.Row="1" Content="Open" Style="{DynamicResource btnOpen}"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="Clean" Style="{DynamicResource btnClean}"/>
+        <Button Grid.Row="1" Grid.Column="3" Content="Close" Style="{DynamicResource btnClose}"/>
+    </Grid>
+</Window>
